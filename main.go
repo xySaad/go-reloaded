@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"go_reloaded/utils"
 	"os"
 )
@@ -19,4 +20,13 @@ func main() {
 		return
 	}
 
+	input := args[1]
+	plainTxt, err := os.ReadFile(input)
+	if err != nil {
+		fmt.Println("Error Reading file:", err)
+		return
+	}
+
+	// Debuging
+	print(plainTxt)
 }
