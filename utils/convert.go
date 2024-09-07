@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -32,24 +31,34 @@ func Convert(txt []string) string {
 		switch command {
 		case "hex":
 			for rep := 1; rep <= index; rep++ {
-				result[i-rep] = Hex(result[i-rep])
+				if i-rep > 0 {
+					result[i-rep] = Hex(result[i-rep])
+				}
 			}
 
 		case "bin":
 			for rep := 1; rep <= index; rep++ {
-				result[i-rep] = Bin(result[i-rep])
+				if i-rep > 0 {
+					result[i-rep] = Bin(result[i-rep])
+				}
 			}
 		case "cap":
 			for rep := 1; rep <= index; rep++ {
-				result[i-rep] = Cap(result[i-rep])
+				if i-rep > 0 {
+					result[i-rep] = Cap(result[i-rep])
+				}
 			}
 		case "up":
 			for rep := 1; rep <= index; rep++ {
-				result[i-rep] = strings.ToUpper(result[i-rep])
+				if i-rep > 0 {
+					result[i-rep] = strings.ToUpper(result[i-rep])
+				}
 			}
 		case "low":
 			for rep := 1; rep <= index; rep++ {
-				result[i-rep] = strings.ToLower(result[i-rep])
+				if i-rep > 0 {
+					result[i-rep] = strings.ToLower(result[i-rep])
+				}
 			}
 		}
 	}
@@ -59,7 +68,7 @@ func Convert(txt []string) string {
 func Hex(str string) string {
 	data, err := strconv.ParseInt(str, 16, 64)
 	if err != nil {
-		fmt.Println("Error:", err)
+		// fmt.Println(str, "-> Error:", err)
 		return str
 	}
 	return strconv.Itoa(int(data))
@@ -68,7 +77,7 @@ func Hex(str string) string {
 func Bin(str string) string {
 	data, err := strconv.ParseInt(str, 2, 64)
 	if err != nil {
-		fmt.Println("Error:", err)
+		// fmt.Println(str, "-> Error:", err)
 		return str
 	}
 	return strconv.Itoa(int(data))
