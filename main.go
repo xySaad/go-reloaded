@@ -32,12 +32,11 @@ func main() {
 
 	formatedTxt := utils.FormatTxt(plainTxt)
 	convertedTxt := utils.Convert(formatedTxt)
-	// Debuging
-	fmt.Println(convertedTxt)
-	// if formatedTxt == nil {
-	// 	println(" ")
-	// }
-	// for _, v := range formatedTxt {
-	// 	fmt.Println(v)
-	// }
+	output := args[2]
+	writeErr := os.WriteFile(output, []byte(convertedTxt), 0644)
+	if writeErr != nil {
+		fmt.Println("Error writing file:", writeErr)
+	} else {
+		fmt.Println("File", output, "has been written successfully")
+	}
 }
