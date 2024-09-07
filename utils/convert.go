@@ -16,7 +16,7 @@ func Convert(txt []string) string {
 		if len(matches) < 1 {
 			continue
 		}
-		if len(result) == i-1 {
+		if len(result) <= i {
 			result = result[:i-1]
 			break
 		} else {
