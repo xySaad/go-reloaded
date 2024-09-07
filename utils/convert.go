@@ -66,7 +66,6 @@ func Bin(str string) string {
 	return strconv.Itoa(int(data))
 }
 func Cap(str string) string {
-	println('A' - 'a')
 	slice := []rune(str)
 	slice[0] = slice[0] - 32
 	return string(slice)
