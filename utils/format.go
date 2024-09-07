@@ -8,10 +8,10 @@ import (
 func FormatTxt(txt string) []string {
 	result := txt
 
-	commaRe := regexp.MustCompile(`[\s]*(,|\.\.\.|,|!|\?|:)[.]*[\s]*`)
-	result = commaRe.ReplaceAllString(result, `$1 `)
+	commaRe := regexp.MustCompile(`[\s]*([,|\.\.\.|,|!|\?|:]+)[.]*[\s]*([,|\.\.\.|,|!|\?|:]*)`)
+	result = commaRe.ReplaceAllString(result, `$1$2 `)
 
-	quotationRe := regexp.MustCompile(`([^n])'[\s]*(.*?)[\s]*'`)
+	quotationRe := regexp.MustCompile(`([^n])'[\s]*(.*?)[\s]+'`)
 	result = quotationRe.ReplaceAllString(result, `$1'$2'`)
 
 	re := regexp.MustCompile(` \((hex|bin|up|low|cap), (\d*)?\)(,)?`)
