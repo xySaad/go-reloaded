@@ -86,7 +86,11 @@ func Cap(str string) string {
 	slice := []rune(str)
 	if slice[0] <= 'z' && slice[0] >= 'a' {
 		slice[0] = slice[0] - 32
-
+	}
+	for i := 1; i < len(slice); i++ {
+		if slice[i] <= 'Z' && slice[0] >= 'A' {
+			slice[i] = slice[i] + 32
+		}
 	}
 	return string(slice)
 }
