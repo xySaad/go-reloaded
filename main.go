@@ -32,7 +32,7 @@ func main() {
 	output := args[2]
 
 	if strings.HasSuffix(output, ".go") {
-		print("Can't process a go file, please enter a text file path")
+		print("Can't Overwrite a go file, please enter a text file path")
 		return
 	}
 
