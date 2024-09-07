@@ -38,25 +38,25 @@ func Convert(txt []string) string {
 
 		case "bin":
 			for rep := 1; rep <= index; rep++ {
-				if i-rep > 0 {
+				if i-rep >= 0 {
 					result[i-rep] = Bin(result[i-rep])
 				}
 			}
 		case "cap":
 			for rep := 1; rep <= index; rep++ {
-				if i-rep > 0 {
+				if i-rep >= 0 {
 					result[i-rep] = Cap(result[i-rep])
 				}
 			}
 		case "up":
 			for rep := 1; rep <= index; rep++ {
-				if i-rep > 0 {
+				if i-rep >= 0 {
 					result[i-rep] = strings.ToUpper(result[i-rep])
 				}
 			}
 		case "low":
 			for rep := 1; rep <= index; rep++ {
-				if i-rep > 0 {
+				if i-rep >= 0 {
 					result[i-rep] = strings.ToLower(result[i-rep])
 				}
 			}
@@ -84,6 +84,9 @@ func Bin(str string) string {
 }
 func Cap(str string) string {
 	slice := []rune(str)
-	slice[0] = slice[0] - 32
+	if slice[0] <= 'z' && slice[0] >= 'a' {
+		slice[0] = slice[0] - 32
+
+	}
 	return string(slice)
 }
