@@ -31,7 +31,7 @@ func Convert(txt []string) string {
 		switch command {
 		case "hex":
 			for rep := 1; rep <= index; rep++ {
-				if i-rep > 0 {
+				if i-rep >= 0 {
 					result[i-rep] = Hex(result[i-rep])
 				}
 			}
