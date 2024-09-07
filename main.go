@@ -21,12 +21,23 @@ func main() {
 	}
 
 	input := args[1]
-	plainTxt, err := os.ReadFile(input)
+	data, err := os.ReadFile(input)
+
 	if err != nil {
 		fmt.Println("Error Reading file:", err)
 		return
 	}
 
+	plainTxt := string(data)
+
+	formatedTxt := utils.FormatTxt(plainTxt)
+	convertedTxt := utils.Convert(formatedTxt)
 	// Debuging
-	print(plainTxt)
+	fmt.Println(convertedTxt)
+	// if formatedTxt == nil {
+	// 	println(" ")
+	// }
+	// for _, v := range formatedTxt {
+	// 	fmt.Println(v)
+	// }
 }
