@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"go_reloaded/utils"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -28,11 +29,17 @@ func main() {
 		return
 	}
 
+	output := args[2]
+
+	if strings.HasSuffix(output, ".go") {
+		print("Can't process a go file, please enter a text file path")
+		return
+	}
+
 	plainTxt := string(data)
 
 	formatedTxt := utils.FormatTxt(plainTxt)
 	convertedTxt := utils.Convert(formatedTxt)
-	output := args[2]
 	writeErr := os.WriteFile(output, []byte(convertedTxt), 0644)
 	if writeErr != nil {
 		fmt.Println("Error writing file:", writeErr)
