@@ -11,7 +11,7 @@ func FormatTxt(txt string) []string {
 	commaRe := regexp.MustCompile(`[\s]*([,|\.\.\.|,|!|\?|:]+)[.]*[\s]*([,|\.\.\.|,|!|\?|:]*)`)
 	result = commaRe.ReplaceAllString(result, `$1$2 `)
 
-	quotationRe := regexp.MustCompile(`([^n])'[\s]*(.*?)[\s]+'`)
+	quotationRe := regexp.MustCompile(`([^n])'[\s]*(.*?)[\s]*'`)
 	result = quotationRe.ReplaceAllString(result, `$1'$2'`)
 
 	a2anRe := regexp.MustCompile(`(a|A)([\s]+[a|e|i|o|u|h|A|E|I|O|U|H])`)
