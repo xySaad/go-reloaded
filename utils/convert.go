@@ -11,7 +11,7 @@ func Convert(txt []string) string {
 	result := txt
 
 	for i, v := range txt {
-		re := regexp.MustCompile(`\((hex|bin|up|low|cap)\-?(\d*)?\)`)
+		re := regexp.MustCompile(`\((hex|bin|up|low|cap)\-?(\d+)?\)`)
 		matches := re.FindStringSubmatch(v)
 		if len(matches) < 1 {
 			continue
