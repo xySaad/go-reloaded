@@ -88,7 +88,7 @@ func Cap(str string) string {
 		slice[0] = slice[0] - 32
 	}
 	for i := 1; i < len(slice); i++ {
-		if slice[i] <= 'Z' && slice[0] >= 'A' {
+		if slice[i] <= 'Z' && slice[i] >= 'A' {
 			slice[i] = slice[i] + 32
 		}
 	}

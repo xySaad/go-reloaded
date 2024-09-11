@@ -1,12 +1,17 @@
 package utils
 
+import (
+	"fmt"
+	"os"
+)
+
 func PrintWarn(warn string) {
 	switch warn {
 	case "noArgs":
-		print("[go reloaded] Please provide input and output files\n")
+		fmt.Fprintln(os.Stderr, "[go reloaded] Please provide input and output files")
 	case "noOutput":
-		print("[go reloaded] Please provide output file\n")
+		fmt.Fprintln(os.Stderr, "[go reloaded] Please provide output file")
 	case "usage":
-		print("[go reloaded] Usage: go run . input.txt output.txt")
+		fmt.Fprintln(os.Stderr, "[go reloaded] Usage: go run . input.txt output.txt")
 	}
 }

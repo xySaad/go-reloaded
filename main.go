@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"go_reloaded/utils"
 	"os"
-	"strings"
 )
 
 func main() {
@@ -31,10 +30,12 @@ func main() {
 
 	output := args[2]
 
-	if strings.HasSuffix(output, ".go") {
-		print("Can't Overwrite a go file, please enter a text file path")
-		return
-	}
+	// TODO : warn user when overwriting a file
+
+	// if strings.HasSuffix(output, ".go") {
+	// 	print("Can't Overwrite a go file, please enter a text file path")
+	// 	return
+	// }
 
 	plainTxt := string(data)
 
@@ -42,7 +43,7 @@ func main() {
 	convertedTxt := utils.Convert(formatedTxt)
 	writeErr := os.WriteFile(output, []byte(convertedTxt), 0644)
 	if writeErr != nil {
-		fmt.Println("Error writing file:", writeErr)
+		fmt.Fprintln(os.Stderr, "Error writing file:", writeErr)
 	} else {
 		fmt.Println("File", output, "has been written successfully")
 	}
