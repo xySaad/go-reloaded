@@ -36,7 +36,6 @@ func main() {
 	convertedTxt := ""
 
 	for _, line := range lines {
-		fmt.Println("[startLine]" + line + "[endLine]")
 		formatedTxt := utils.FormatTxt(line)
 		convertedTxt += utils.Convert(formatedTxt) + string('\n')
 	}
