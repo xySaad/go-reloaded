@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"go_reloaded/utils"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -30,18 +31,27 @@ func main() {
 
 	output := args[2]
 
-	// TODO : warn user when overwriting a file
-
-	// if strings.HasSuffix(output, ".go") {
-	// 	print("Can't Overwrite a go file, please enter a text file path")
-	// 	return
-	// }
-
 	plainTxt := string(data)
+	lines := strings.Split(strings.ReplaceAll(plainTxt, "\r\n", "\n"), "\n")
+	convertedTxt := ""
 
-	formatedTxt := utils.FormatTxt(plainTxt)
-	convertedTxt := utils.Convert(formatedTxt)
-	writeErr := os.WriteFile(output, []byte(convertedTxt), 0644)
+	for _, line := range lines {
+		fmt.Println("[startLine]" + line + "[endLine]")
+		formatedTxt := utils.FormatTxt(line)
+		convertedTxt += utils.Convert(formatedTxt) + string('\n')
+	}
+
+	outputDir := "./output"
+
+	mkdirErr := os.MkdirAll(outputDir, 0755)
+
+	if mkdirErr != nil {
+		fmt.Fprintln(os.Stderr, "Error creating output directory:", err)
+		return
+	}
+
+	writeErr := os.WriteFile(outputDir+"/"+output, []byte(convertedTxt), 0644)
+
 	if writeErr != nil {
 		fmt.Fprintln(os.Stderr, "Error writing file:", writeErr)
 	} else {

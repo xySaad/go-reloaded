@@ -20,8 +20,8 @@ func FormatTxt(txt string) []string {
 	a2anRe := regexp.MustCompile(`( a|A)([ ]+[a|e|i|o|u|h|A|E|I|O|U|H])`)
 	result = a2anRe.ReplaceAllString(result, `${1}n $2`)
 
-	re := regexp.MustCompile(` \((hex|bin|up|low|cap), (\d+)?\)([,|\.\.\.|,|!|\?|:]*)?`)
+	re := regexp.MustCompile(` \((hex|bin|up|low|cap)(?:, (\d+)?)?\)([,|\.\.\.|,|!|\?|:]*)?`)
 	result = re.ReplaceAllString(result, `$3 ($1-$2)`)
 
-	return strings.Fields(result)
+	return strings.Split(result, " ")
 }

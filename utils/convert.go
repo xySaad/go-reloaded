@@ -24,15 +24,19 @@ func Convert(txt []string) string {
 		}
 		command := matches[1]
 		index, _ := strconv.Atoi(matches[2])
+		
+		
 		if index == 0 {
 			index = 1
 		}
-
+		
 		switch command {
 		case "hex":
 			for rep := 1; rep <= index; rep++ {
 				if i-rep >= 0 {
 					result[i-rep] = Hex(result[i-rep])
+				} else {
+					break
 				}
 			}
 
@@ -40,33 +44,44 @@ func Convert(txt []string) string {
 			for rep := 1; rep <= index; rep++ {
 				if i-rep >= 0 {
 					result[i-rep] = Bin(result[i-rep])
+				}else {
+					break
 				}
 			}
 		case "cap":
 			for rep := 1; rep <= index; rep++ {
 				if i-rep >= 0 {
 					result[i-rep] = Cap(result[i-rep])
+				}else {
+					break
 				}
 			}
 		case "up":
 			for rep := 1; rep <= index; rep++ {
 				if i-rep >= 0 {
 					result[i-rep] = strings.ToUpper(result[i-rep])
+				}else {
+					break
 				}
 			}
 		case "low":
 			for rep := 1; rep <= index; rep++ {
 				if i-rep >= 0 {
 					result[i-rep] = strings.ToLower(result[i-rep])
+				}else {
+					break
 				}
 			}
 		}
+
+
+
 	}
 	return strings.Join(result, " ")
 }
 
 func Hex(str string) string {
-	data, err := strconv.ParseInt(str, 16, 64)
+	data, err := strconv.ParseInt(str, 16, 0)
 	if err != nil {
 		// fmt.Println(str, "-> Error:", err)
 		return str
@@ -75,7 +90,7 @@ func Hex(str string) string {
 }
 
 func Bin(str string) string {
-	data, err := strconv.ParseInt(str, 2, 64)
+	data, err := strconv.ParseInt(str, 2, 0)
 	if err != nil {
 		// fmt.Println(str, "-> Error:", err)
 		return str
