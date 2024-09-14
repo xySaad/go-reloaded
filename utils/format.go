@@ -8,8 +8,14 @@ import (
 func FormatTxt(txt string) []string {
 	result := txt
 
-	commaRe := regexp.MustCompile(`[ ]*([,\.!\?:]+)[ ]*`)
-	result = commaRe.ReplaceAllString(result, `$1`)
+	re := regexp.MustCompile(` \((hex|bin|up|low|cap)(?:, (\d+)?)?\)([,|\.\.\.|,|!|\?|:]*)?`)
+	result = re.ReplaceAllString(result, `$3 ($1-$2)`)
+
+	punctuationRe := regexp.MustCompile(`[ ]*([,\.!\?:]+)[ ]*`)
+	result = punctuationRe.ReplaceAllString(result, `$1`)
+
+	punctRe2 := regexp.MustCompile(`([,\.!\?:]+)`)
+	result = punctRe2.ReplaceAllString(result, `$1 `)
 
 	apstropheRe := regexp.MustCompile(`(\w)'(\w)`)
 	result = apstropheRe.ReplaceAllString(result, `$1’$2`)
@@ -19,9 +25,6 @@ func FormatTxt(txt string) []string {
 
 	a2anRe := regexp.MustCompile(`(^a|^A| a| A)([ ]+[a|e|i|o|u|h|A|E|I|O|U|H])`)
 	result = a2anRe.ReplaceAllString(result, `${1}n $2`)
-
-	re := regexp.MustCompile(` \((hex|bin|up|low|cap)(?:, (\d+)?)?\)([,|\.\.\.|,|!|\?|:]*)?`)
-	result = re.ReplaceAllString(result, `$3 ($1-$2)`)
 
 	return strings.Split(result, " ")
 }
