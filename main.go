@@ -35,9 +35,12 @@ func main() {
 	lines := strings.Split(strings.ReplaceAll(plainTxt, "\r\n", "\n"), "\n")
 	convertedTxt := ""
 
-	for _, line := range lines {
+	for i, line := range lines {
 		formatedTxt := utils.FormatTxt(line)
-		convertedTxt += utils.Convert(formatedTxt) + string('\n')
+		convertedTxt += utils.Convert(formatedTxt)
+		if i < len(lines)-1 {
+			convertedTxt += string('\n')
+		}
 	}
 
 	outputDir := "./output"
