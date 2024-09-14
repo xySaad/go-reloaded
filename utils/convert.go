@@ -24,12 +24,11 @@ func Convert(txt []string) string {
 		}
 		command := matches[1]
 		index, _ := strconv.Atoi(matches[2])
-		
-		
+
 		if index == 0 {
 			index = 1
 		}
-		
+
 		switch command {
 		case "hex":
 			for rep := 1; rep <= index; rep++ {
@@ -44,7 +43,7 @@ func Convert(txt []string) string {
 			for rep := 1; rep <= index; rep++ {
 				if i-rep >= 0 {
 					result[i-rep] = Bin(result[i-rep])
-				}else {
+				} else {
 					break
 				}
 			}
@@ -52,7 +51,7 @@ func Convert(txt []string) string {
 			for rep := 1; rep <= index; rep++ {
 				if i-rep >= 0 {
 					result[i-rep] = Cap(result[i-rep])
-				}else {
+				} else {
 					break
 				}
 			}
@@ -60,7 +59,7 @@ func Convert(txt []string) string {
 			for rep := 1; rep <= index; rep++ {
 				if i-rep >= 0 {
 					result[i-rep] = strings.ToUpper(result[i-rep])
-				}else {
+				} else {
 					break
 				}
 			}
@@ -68,16 +67,14 @@ func Convert(txt []string) string {
 			for rep := 1; rep <= index; rep++ {
 				if i-rep >= 0 {
 					result[i-rep] = strings.ToLower(result[i-rep])
-				}else {
+				} else {
 					break
 				}
 			}
 		}
-
-
-
 	}
-	return strings.Join(result, " ")
+
+	return Join(result, " ")
 }
 
 func Hex(str string) string {
@@ -99,6 +96,11 @@ func Bin(str string) string {
 }
 func Cap(str string) string {
 	slice := []rune(str)
+
+	if len(slice) <= 0 {
+		return str
+	}
+
 	if slice[0] <= 'z' && slice[0] >= 'a' {
 		slice[0] = slice[0] - 32
 	}
