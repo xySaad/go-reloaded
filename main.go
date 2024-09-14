@@ -39,7 +39,7 @@ func main() {
 		formatedTxt := utils.FormatTxt(line)
 		convertedTxt += utils.Convert(formatedTxt)
 		if i < len(lines)-1 {
-			convertedTxt += string('\n')
+			convertedTxt += "\n"
 		}
 	}
 
