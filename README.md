@@ -8,7 +8,7 @@ Modifying a pre-formated txt file.
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Features] (#features)
+- [Features](#features)
 
 ## Installation
 
