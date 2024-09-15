@@ -32,7 +32,7 @@ func main() {
 	output := args[2]
 
 	plainTxt := string(data)
-	lines := strings.Split(strings.ReplaceAll(plainTxt, "\r\n", "\n"), "\n")
+	lines := strings.Split(utils.Replace(plainTxt, "\r\n", "\n"), "\n")
 	convertedTxt := ""
 
 	for i, line := range lines {

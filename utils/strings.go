@@ -25,3 +25,30 @@ func Join(slice []string, sep string) string {
 
 	return output
 }
+
+func Replace(str, old, new string) string {
+	result := ""
+	oldText := []rune(old)
+	text := []rune(str)
+
+	for i, char := range text {
+		pass := true
+
+		if i+len(oldText) < len(text) {
+			for j, oldChar := range oldText {
+				if text[i+j] != oldChar {
+					pass = false
+				}
+			}
+		}
+
+		if pass {
+			result += new
+		} else {
+			result += string(char)
+		}
+
+	}
+
+	return result
+}
