@@ -28,27 +28,33 @@ func Join(slice []string, sep string) string {
 
 func Replace(str, old, new string) string {
 	result := ""
-	oldText := []rune(old)
-	text := []rune(str)
 
-	for i, char := range text {
-		pass := true
-
-		if i+len(oldText) < len(text) {
-			for j, oldChar := range oldText {
-				if text[i+j] != oldChar {
-					pass = false
-				}
-			}
-		}
-
-		if pass {
+	i := 0
+	for i < len(str) {
+		if i+len(old) <= len(str) && str[i:i+len(old)] == old {
 			result += new
+			i += len(old)
 		} else {
-			result += string(char)
+			result += string(str[i])
+			i++
 		}
-
 	}
 
+	return result
+}
+
+func Split(str, sep string) []string {
+	result := []string{""}
+
+	i := 0
+	for i < len(str) {
+		if i+len(sep) <= len(str) && str[i:i+len(sep)] == sep {
+			result = append(result, "")
+			i += len(sep)
+		} else {
+			result[len(result)-1] += string(str[i])
+			i++
+		}
+	}
 	return result
 }

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"go_reloaded/utils"
 	"os"
-	"strings"
 )
 
 func main() {
@@ -32,7 +31,7 @@ func main() {
 	output := args[2]
 
 	plainTxt := string(data)
-	lines := strings.Split(utils.Replace(plainTxt, "\r\n", "\n"), "\n")
+	lines := utils.Split(utils.Replace(plainTxt, "\r\n", "\n"), "\n")
 	convertedTxt := ""
 
 	for i, line := range lines {
