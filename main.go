@@ -28,7 +28,8 @@ func main() {
 		return
 	}
 
-	output := args[2]
+	outputPath := utils.Split(args[2], "/")
+	output := outputPath[len(outputPath)-1]
 
 	plainTxt := string(data)
 	lines := utils.Split(utils.Replace(plainTxt, "\r\n", "\n"), "\n")
