@@ -2,7 +2,6 @@ package utils
 
 import (
 	"regexp"
-	"strings"
 )
 
 func FormatTxt(txt string) []string {
@@ -24,7 +23,7 @@ func FormatTxt(txt string) []string {
 	result = quotationRe.ReplaceAllString(result, `'$1'`)
 
 	a2anRe := regexp.MustCompile(`(^a|^A| a| A)([ ]+[a|e|i|o|u|h|A|E|I|O|U|H])`)
-	result = a2anRe.ReplaceAllString(result, `${1}n $2`)
+	result = a2anRe.ReplaceAllString(result, `${1}n$2`)
 
-	return strings.Split(result, " ")
+	return Split(result, " ")
 }
