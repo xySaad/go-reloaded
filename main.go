@@ -20,6 +20,11 @@ func main() {
 		return
 	}
 
+	if len(args) > 3 {
+		utils.PrintWarn("manyArgs")
+		return
+	}
+
 	input := args[1]
 	data, err := os.ReadFile(input)
 

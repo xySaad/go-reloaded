@@ -13,5 +13,7 @@ func PrintWarn(warn string) {
 		fmt.Fprintln(os.Stderr, "[go reloaded] Please provide output file")
 	case "usage":
 		fmt.Fprintln(os.Stderr, "[go reloaded] Usage: go run . input.txt output.txt")
+	case "manyArgs":
+		fmt.Fprintln(os.Stderr, "[go reloaded] Too many arguments")
 	}
 }
