@@ -22,8 +22,10 @@ func FormatTxt(txt string) []string {
 	quotationRe := regexp.MustCompile(`'[ ]*(.*?)[ ]*'`)
 	result = quotationRe.ReplaceAllString(result, `'$1'`)
 
-	a2anRe := regexp.MustCompile(`(^a|^A| a| A)([ ]+[a|e|i|o|u|h|A|E|I|O|U|H])`)
-	result = a2anRe.ReplaceAllString(result, `${1}n$2`)
-
 	return Split(result, " ")
+}
+
+func A2An(str string) string {
+	a2anRe := regexp.MustCompile(`(^a|^A| a| A)([ ]+[a|e|i|o|u|h|A|E|I|O|U|H])`)
+	return a2anRe.ReplaceAllString(str, `${1}n$2`)
 }

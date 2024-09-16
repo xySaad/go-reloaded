@@ -43,6 +43,8 @@ func main() {
 		}
 	}
 
+	convertedTxt = utils.A2An(convertedTxt)
+
 	outputDir := "./output"
 
 	mkdirErr := os.MkdirAll(outputDir, 0755)
