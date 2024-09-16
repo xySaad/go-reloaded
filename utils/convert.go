@@ -10,7 +10,8 @@ func Convert(txt []string) string {
 
 	result := txt
 
-	for i, v := range txt {
+	for i := 0; i < len(result); i++ {
+		v := result[i]
 		re := regexp.MustCompile(`\((hex|bin|up|low|cap)\-?(\d+)?\)`)
 		matches := re.FindStringSubmatch(v)
 		if len(matches) < 1 {
@@ -22,51 +23,63 @@ func Convert(txt []string) string {
 		} else {
 			result = append(result[:i], result[i+1:]...)
 		}
-		command := matches[1]
-		index, _ := strconv.Atoi(matches[2])
+		modifier := matches[1]
+		quantifier, _ := strconv.Atoi(matches[2])
 
-		if index == 0 {
-			index = 1
+		if quantifier == 0 {
+			quantifier = 1
 		}
 
-		switch command {
+		// fmt.Println("command:", modifier, "index:", quantifier)
+
+		switch modifier {
 		case "hex":
-			for rep := 1; rep <= index; rep++ {
+			for rep := 1; rep <= quantifier; rep++ {
 				if i-rep >= 0 {
+					// fmt.Println(modifier+"ing", result[i-rep])
 					result[i-rep] = Hex(result[i-rep])
+					i--
 				} else {
 					break
 				}
 			}
 
 		case "bin":
-			for rep := 1; rep <= index; rep++ {
+			for rep := 1; rep <= quantifier; rep++ {
 				if i-rep >= 0 {
+					// fmt.Println(modifier+"ing", result[i-rep])
 					result[i-rep] = Bin(result[i-rep])
+					i--
 				} else {
 					break
 				}
 			}
 		case "cap":
-			for rep := 1; rep <= index; rep++ {
+			for rep := 1; rep <= quantifier; rep++ {
 				if i-rep >= 0 {
+					// fmt.Println(modifier+"ing", result[i-rep])
 					result[i-rep] = Cap(result[i-rep])
+					i--
 				} else {
 					break
 				}
 			}
 		case "up":
-			for rep := 1; rep <= index; rep++ {
+			for rep := 1; rep <= quantifier; rep++ {
 				if i-rep >= 0 {
+					// fmt.Println(modifier+"ing", result[i-rep])
 					result[i-rep] = strings.ToUpper(result[i-rep])
+					i--
 				} else {
 					break
 				}
 			}
 		case "low":
-			for rep := 1; rep <= index; rep++ {
+			for rep := 1; rep <= quantifier; rep++ {
 				if i-rep >= 0 {
+					// fmt.Println(modifier+"ing", result[i-rep])
 					result[i-rep] = strings.ToLower(result[i-rep])
+					i--
 				} else {
 					break
 				}
