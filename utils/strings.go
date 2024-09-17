@@ -28,14 +28,17 @@ func Join(slice []string, sep string) string {
 
 func Replace(str, old, new string) string {
 	result := ""
+	rStr := []rune(str)
+	rOld := []rune(old)
+	rNew := []rune(new)
 
 	i := 0
-	for i < len(str) {
-		if i+len(old) <= len(str) && str[i:i+len(old)] == old {
-			result += new
-			i += len(old)
+	for i < len(rStr) {
+		if i+len(rOld) <= len(rStr) && string(rStr[i:i+len(rOld)]) == old {
+			result += string(rNew)
+			i += len(rOld)
 		} else {
-			result += string(str[i])
+			result += string(rStr[i])
 			i++
 		}
 	}
@@ -46,13 +49,16 @@ func Replace(str, old, new string) string {
 func Split(str, sep string) []string {
 	result := []string{""}
 
+	rStr := []rune(str)
+	rSep := []rune(sep)
+
 	i := 0
-	for i < len(str) {
-		if i+len(sep) <= len(str) && str[i:i+len(sep)] == sep {
+	for i < len(rStr) {
+		if i+len(rSep) <= len(rStr) && string(rStr[i:i+len(rSep)]) == sep {
 			result = append(result, "")
-			i += len(sep)
+			i += len(rSep)
 		} else {
-			result[len(result)-1] += string(str[i])
+			result[len(result)-1] += string(rStr[i])
 			i++
 		}
 	}
