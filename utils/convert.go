@@ -7,87 +7,53 @@ import (
 )
 
 func Convert(txt []string) string {
+	return convertHelper(txt, 0)
+}
 
-	result := txt
+func convertHelper(txt []string, index int) string {
+	if index >= len(txt) {
+		return Join(txt, " ")
+	}
 
-	for i := 0; i < len(result); i++ {
-		v := result[i]
-		re := regexp.MustCompile(`\((hex|bin|up|low|cap)\-?(\d+)?\)`)
-		matches := re.FindStringSubmatch(v)
-		if len(matches) < 1 {
-			continue
-		}
-		if len(result) <= i {
-			result = result[:i-1]
-			break
+	v := txt[index]
+	re := regexp.MustCompile(`\((hex|bin|up|low|cap)-?(\d+)?\)`)
+	matches := re.FindStringSubmatch(v)
+
+	if len(matches) < 1 {
+		return convertHelper(txt, index+1)
+	}
+
+	modifier := matches[1]
+	quantifier, _ := strconv.Atoi(matches[2])
+	if quantifier == 0 {
+		quantifier = 1
+	}
+
+	// Remove the command from the slice
+	txt = append(txt[:index], txt[index+1:]...)
+
+	// Apply the modifier to previous elements
+	for rep := 1; rep <= quantifier; rep++ {
+		if index-rep >= 0 {
+			switch modifier {
+			case "hex":
+				txt[index-rep] = Hex(txt[index-rep])
+			case "bin":
+				txt[index-rep] = Bin(txt[index-rep])
+			case "cap":
+				txt[index-rep] = Cap(txt[index-rep])
+			case "up":
+				txt[index-rep] = strings.ToUpper(txt[index-rep])
+			case "low":
+				txt[index-rep] = strings.ToLower(txt[index-rep])
+			}
 		} else {
-			result = append(result[:i], result[i+1:]...)
-		}
-		modifier := matches[1]
-		quantifier, _ := strconv.Atoi(matches[2])
-
-		if quantifier == 0 {
-			quantifier = 1
-		}
-
-		// fmt.Println("command:", modifier, "index:", quantifier)
-
-		switch modifier {
-		case "hex":
-			for rep := 1; rep <= quantifier; rep++ {
-				if i-rep >= 0 {
-					// fmt.Println(modifier+"ing", result[i-rep])
-					result[i-rep] = Hex(result[i-rep])
-					i--
-				} else {
-					break
-				}
-			}
-
-		case "bin":
-			for rep := 1; rep <= quantifier; rep++ {
-				if i-rep >= 0 {
-					// fmt.Println(modifier+"ing", result[i-rep])
-					result[i-rep] = Bin(result[i-rep])
-					i--
-				} else {
-					break
-				}
-			}
-		case "cap":
-			for rep := 1; rep <= quantifier; rep++ {
-				if i-rep >= 0 {
-					// fmt.Println(modifier+"ing", result[i-rep])
-					result[i-rep] = Cap(result[i-rep])
-					i--
-				} else {
-					break
-				}
-			}
-		case "up":
-			for rep := 1; rep <= quantifier; rep++ {
-				if i-rep >= 0 {
-					// fmt.Println(modifier+"ing", result[i-rep])
-					result[i-rep] = strings.ToUpper(result[i-rep])
-					i--
-				} else {
-					break
-				}
-			}
-		case "low":
-			for rep := 1; rep <= quantifier; rep++ {
-				if i-rep >= 0 {
-					// fmt.Println(modifier+"ing", result[i-rep])
-					result[i-rep] = strings.ToLower(result[i-rep])
-					i--
-				} else {
-					break
-				}
-			}
+			break
 		}
 	}
 
-	return Join(result, " ")
+	// Continue processing with the modified text
+	return convertHelper(txt, index)
 }
 
 func Hex(str string) string {
