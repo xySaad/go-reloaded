@@ -4,6 +4,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 func Convert(txt []string) string {
@@ -87,13 +88,11 @@ func Cap(str string) string {
 			break
 		}
 	}
-	if slice[start] <= 'z' && slice[start] >= 'a' {
-		slice[start] = slice[start] - 32
-	}
+
+	slice[start] = unicode.ToUpper(slice[start])
+
 	for i := start + 1; i < len(slice); i++ {
-		if slice[i] <= 'Z' && slice[i] >= 'A' {
-			slice[i] = slice[i] + 32
-		}
+		slice[i] = unicode.ToLower(slice[i])
 	}
 	return string(slice)
 }
