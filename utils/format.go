@@ -11,7 +11,7 @@ func FormatTxt(txt string) []string {
 	result = re.ReplaceAllString(result, `$3 ($1-$2)`)
 
 	re2 := regexp.MustCompile(` \((hex|bin|up|low|cap)\)[ ]+([,|\.\.\.|,|!|\?|:]*)`)
-	result = re2.ReplaceAllString(result, `$3 ($1)`)
+	result = re2.ReplaceAllString(result, `$2 ($1)`)
 	punctuationRe := regexp.MustCompile(`[ ]*([,.!?:]+)[ ]*`)
 	result = punctuationRe.ReplaceAllString(result, `$1`)
 
