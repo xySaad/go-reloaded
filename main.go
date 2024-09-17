@@ -42,6 +42,7 @@ func main() {
 
 	for i, line := range lines {
 		formatedTxt := utils.FormatTxt(line)
+		formatedTxt = utils.TrimSlice(formatedTxt)
 		convertedTxt += utils.Convert(formatedTxt)
 		if i < len(lines)-1 {
 			convertedTxt += "\n"

@@ -58,3 +58,7 @@ func Split(str, sep string) []string {
 	}
 	return result
 }
+
+func TrimSlice(slice []string) []string {
+	return Split(Join(slice, " "), " ")
+}
