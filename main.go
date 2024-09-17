@@ -65,6 +65,6 @@ func main() {
 	if writeErr != nil {
 		fmt.Fprintln(os.Stderr, "Error writing file:", writeErr)
 	} else {
-		fmt.Println("File", output, "has been written successfully")
+		fmt.Println("[go reloaded] File", output, "has been written successfully")
 	}
 }
