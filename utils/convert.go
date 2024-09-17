@@ -79,11 +79,18 @@ func Cap(str string) string {
 	if len(slice) <= 0 {
 		return str
 	}
+	start := 0
 
-	if slice[0] <= 'z' && slice[0] >= 'a' {
-		slice[0] = slice[0] - 32
+	for i := 0; i < len(slice); i++ {
+		if slice[i] != '\'' {
+			start = i
+			break
+		}
 	}
-	for i := 1; i < len(slice); i++ {
+	if slice[start] <= 'z' && slice[start] >= 'a' {
+		slice[start] = slice[start] - 32
+	}
+	for i := start + 1; i < len(slice); i++ {
 		if slice[i] <= 'Z' && slice[i] >= 'A' {
 			slice[i] = slice[i] + 32
 		}
