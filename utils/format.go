@@ -29,10 +29,10 @@ func FormatTxt(txt string) []string {
 }
 
 func A2An(str string) string {
-	a2anRe := regexp.MustCompile(`\b(a|A)([ ]+[aeiouhAEIOUH])`)
+	a2anRe := regexp.MustCompile(`\b(a|A)[ ]+([aeiouhAEIOUH])`)
 
 	for {
-		newStr := a2anRe.ReplaceAllString(str, "an")
+		newStr := a2anRe.ReplaceAllString(str, "${1}n $2")
 		if newStr == str {
 			break
 		}
