@@ -17,7 +17,7 @@ func convertHelper(txt []string, index int) string {
 	}
 
 	v := txt[index]
-	re := regexp.MustCompile(`\((hex|bin|up|low|cap)-?(\d+)?\)`)
+	re := regexp.MustCompile(`\((hex|bin|up|low|cap)-?(\d+)?\)$`)
 	matches := re.FindStringSubmatch(v)
 
 	if len(matches) < 1 {

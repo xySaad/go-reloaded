@@ -7,9 +7,11 @@ import (
 func FormatTxt(txt string) []string {
 	result := txt
 
-	re := regexp.MustCompile(` \((hex|bin|up|low|cap), (\d+)\)[,|\.\.\.|,|!|\?|:]*`)
+	re := regexp.MustCompile(` \((hex|bin|up|low|cap), (\d+)\)[ ]+([,|\.\.\.|,|!|\?|:]*)`)
 	result = re.ReplaceAllString(result, `$3 ($1-$2)`)
 
+	re2 := regexp.MustCompile(` \((hex|bin|up|low|cap)\)[ ]+([,|\.\.\.|,|!|\?|:]*)`)
+	result = re2.ReplaceAllString(result, `$3 ($1)`)
 	punctuationRe := regexp.MustCompile(`[ ]*([,.!?:]+)[ ]*`)
 	result = punctuationRe.ReplaceAllString(result, `$1`)
 
