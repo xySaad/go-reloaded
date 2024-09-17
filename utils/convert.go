@@ -83,7 +83,9 @@ func Cap(str string) string {
 	start := 0
 
 	for i := 0; i < len(slice); i++ {
-		if slice[i] != '\'' {
+		if slice[i] == '\'' || slice[i] == '(' {
+			start = 0
+		} else {
 			start = i
 			break
 		}
