@@ -4,14 +4,14 @@ import (
 	"regexp"
 )
 
-func FormatTxt(txt string) []string {
+func FormatTxt(txt string) string {
 	result := txt
 
-	re := regexp.MustCompile(` \((hex|bin|up|low|cap), (\d+)\)[ ]+([,|\.\.\.|,|!|\?|:]*)`)
-	result = re.ReplaceAllString(result, `$3 ($1-$2)`)
+	// re := regexp.MustCompile(` \((hex|bin|up|low|cap), (\d+)\)[ ]+([,|\.\.\.|,|!|\?|:]*)`)
+	// result = re.ReplaceAllString(result, `$3 ($1-$2)`)
 
-	re2 := regexp.MustCompile(` \((hex|bin|up|low|cap)\)[ ]+([,|\.\.\.|,|!|\?|:]*)`)
-	result = re2.ReplaceAllString(result, `$2 ($1)`)
+	// re2 := regexp.MustCompile(` \((hex|bin|up|low|cap)\)[ ]+([,|\.\.\.|,|!|\?|:]*)`)
+	// result = re2.ReplaceAllString(result, `$2 ($1)`)
 	punctuationRe := regexp.MustCompile(`[ ]*([,.!?:]+)[ ]*`)
 	result = punctuationRe.ReplaceAllString(result, `$1`)
 
@@ -27,7 +27,7 @@ func FormatTxt(txt string) []string {
 	apstropheRe = regexp.MustCompile(`(\w)’(\w)`)
 	result = apstropheRe.ReplaceAllString(result, `$1'$2`)
 
-	return Split(result, " ")
+	return result
 }
 
 func A2An(str string) string {

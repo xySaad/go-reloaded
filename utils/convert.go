@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"regexp"
 	"strconv"
 	"strings"
 	"unicode"
@@ -17,21 +16,29 @@ func convertHelper(txt []string, index int) string {
 	}
 
 	v := txt[index]
-	re := regexp.MustCompile(`\((hex|bin|up|low|cap)-?(\d+)?\)$`)
-	matches := re.FindStringSubmatch(v)
 
-	if len(matches) < 1 {
+	// re := regexp.MustCompile(`\((hex|bin|up|low|cap)-?(\d+)?\)$`)
+	quantifier := 0
+	modifier := ""
+
+	if v == "(hex)" || v == "(bin)" || v == "(low)" || v == "(cap)" || v == "(up)"{
+		modifier = v[1:len(v)-1]
+		quantifier = 1
+		// Remove the command from the slice
+		txt = append(txt[:index], txt[index+1:]...)
+	} else if (v == "(low," || v == "(up," || v == "(cap,") && txt[index+1][len(txt[index+1])-1] == ')' {
+		num, isValidNumber := Atoi(txt[index+1][:len(txt[index+1])-1])
+		if isValidNumber && num >= 0 {
+			modifier = v[1:len(v)-1]
+			quantifier = num
+			// Remove the command from the slice
+			txt = append(txt[:index], txt[index+2:]...)
+		}
+	}
+
+	if modifier == "" {
 		return convertHelper(txt, index+1)
 	}
-
-	modifier := matches[1]
-	quantifier, _ := strconv.Atoi(matches[2])
-	if quantifier == 0 {
-		quantifier = 1
-	}
-
-	// Remove the command from the slice
-	txt = append(txt[:index], txt[index+1:]...)
 
 	// Apply the modifier to previous elements
 	for rep := 1; rep <= quantifier; rep++ {
@@ -97,4 +104,9 @@ func Cap(str string) string {
 		slice[i] = unicode.ToLower(slice[i])
 	}
 	return string(slice)
+}
+
+func Atoi(s string) (int, bool) {
+	num, err := strconv.Atoi(s)
+	return num, err == nil
 }

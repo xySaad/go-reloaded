@@ -41,9 +41,10 @@ func main() {
 	convertedTxt := ""
 
 	for i, line := range lines {
-		formatedTxt := utils.FormatTxt(line)
-		formatedTxt = utils.TrimSlice(formatedTxt)
+		formatedTxt := utils.TrimSlice(utils.Split(line, " "))
 		convertedTxt += utils.Convert(formatedTxt)
+		convertedTxt = utils.FormatTxt(convertedTxt)
+
 		if i < len(lines)-1 {
 			convertedTxt += "\n"
 		}
